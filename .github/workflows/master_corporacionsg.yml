@@ -16,19 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Setup MSBuild path
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
-      
-    - name: Publish to folder
-      run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
-
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'corporacionsg'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8eab2ea7765d47b1bd33a5195bc58a94 }}
-        package: \published\
+        package: \
